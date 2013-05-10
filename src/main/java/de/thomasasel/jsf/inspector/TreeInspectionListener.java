@@ -4,7 +4,9 @@
  */
 package de.thomasasel.jsf.inspector;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -24,12 +26,16 @@ class TreeInspectionListener implements PhaseListener {
     public void afterPhase(PhaseEvent event) {
         FacesContext ctx = event.getFacesContext();
         UIViewRoot viewRoot = ctx.getViewRoot();
-        
+
         VisitContext vc = VisitContext.createVisitContext(ctx);
         TreeInspectionVisitor tiv = new TreeInspectionVisitor();
         viewRoot.visitTree(vc, tiv);
 
-        outputStatistics(tiv);
+        String key = new Long(System.currentTimeMillis()).toString();
+        
+        Map<String, Object> sessionMap = ctx.getExternalContext().getSessionMap();
+        sessionMap.put(key, tiv.getResult());
+        System.out.println(key);
     }
 
     @Override
@@ -41,30 +47,4 @@ class TreeInspectionListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
-
-    private void outputStatistics(TreeInspectionVisitor tiv) {
-        
-        System.out.println("=================================");
-        System.out.println("Total number of     components: " + (tiv.getCompositeCounter() + tiv.getNoncompositeCounter()));
-        System.out.println("Total number of     composites: " + tiv.getCompositeCounter());
-        System.out.println("Total number of non-composites: " + tiv.getNoncompositeCounter());
-        System.out.println("=================================");
-        
-        for(Entry<ComponentType, List<UIComponent>> entry :tiv.getComponents().entrySet()) {
-            ComponentType componentType = entry.getKey();
-            List<UIComponent> components = entry.getValue();
-            
-            System.out.println("");
-            System.out.println(componentType.getComponentTypeIdentifier() + " [" + componentType.getType() + "] ("+components.size()+")");
-
-            for(UIComponent component : components) {
-                System.out.println("\t" + component.getClientId());
-            }
-            
-        }
-        
-        
-    }
-
-    
 }

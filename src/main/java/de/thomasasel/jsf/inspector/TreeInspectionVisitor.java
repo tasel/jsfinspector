@@ -18,73 +18,30 @@ import javax.faces.component.visit.VisitResult;
  * @author tasel
  */
 class TreeInspectionVisitor implements VisitCallback {
-
-    private int compositeCounter;
-    private int noncompositeCounter ;
     
-    private Map<ComponentType, List<UIComponent>> components = new HashMap<ComponentType, List<UIComponent>>();
+    private final TreeInspectionResult result = new TreeInspectionResult();
     
     @Override
     public VisitResult visit(VisitContext context, UIComponent target) {
         
         ComponentType componentType = ComponentType.build(target); 
         
-        if (getComponents().get(componentType) == null) {
-            getComponents().put(componentType, new ArrayList<UIComponent>());
+        if (result.getComponents().get(componentType) == null) {
+            result.getComponents().put(componentType, new ArrayList<UIComponent>());
         }
         
-        getComponents().get(componentType).add(target);
+        result.getComponents().get(componentType).add(target);
         
         if (componentType.isComposite()) {
-            setCompositeCounter(getCompositeCounter() + 1);
-        } else setNoncompositeCounter(getNoncompositeCounter() + 1);
+            result.setCompositeCounter(result.getCompositeCounter() + 1);
+        } else result.setNoncompositeCounter(result.getNoncompositeCounter() + 1);
         
         return VisitResult.ACCEPT;
         
     }
 
-    /**
-     * @return the compositeCounter
-     */
-    public int getCompositeCounter() {
-        return compositeCounter;
+    public TreeInspectionResult getResult() {
+        return result;
     }
-
-    /**
-     * @param compositeCounter the compositeCounter to set
-     */
-    public void setCompositeCounter(int compositeCounter) {
-        this.compositeCounter = compositeCounter;
-    }
-
-    /**
-     * @return the noncompositeCounter
-     */
-    public int getNoncompositeCounter() {
-        return noncompositeCounter;
-    }
-
-    /**
-     * @param noncompositeCounter the noncompositeCounter to set
-     */
-    public void setNoncompositeCounter(int noncompositeCounter) {
-        this.noncompositeCounter = noncompositeCounter;
-    }
-
-    /**
-     * @return the components
-     */
-    public Map<ComponentType, List<UIComponent>> getComponents() {
-        return components;
-    }
-
-    /**
-     * @param components the components to set
-     */
-    public void setComponents(Map<ComponentType, List<UIComponent>> components) {
-        this.components = components;
-    }
-
-
     
 }

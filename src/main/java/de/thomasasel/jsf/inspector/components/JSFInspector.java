@@ -61,6 +61,7 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
             jquery.getAttributes().put("library", "inspector");
             jquery.getAttributes().put("name", "jquery-1.9.1.min.js");
             jquery.getAttributes().put("target", "head");
+            jquery.setId("jsfinspector-resource-jquery");
             context.getViewRoot().addComponentResource(context, jquery, "head");        
         }
 
@@ -69,6 +70,7 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
             css.getAttributes().put("library", "inspector");
             css.getAttributes().put("name", "inspector.css");
             css.getAttributes().put("target", "head");
+            css.setId("jsfinspector-resource-css");
             context.getViewRoot().addComponentResource(context, css, "head");        
         }
         
