@@ -21,33 +21,38 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = "/jsfinspector")
 public class TreeResultServlet extends HttpServlet {
 
-    private static final String INSPECTOR_RESULT_PARAMETER = "jsfinspector_result";
+    
     
     @Override
      public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
-        String resultKey = request.getParameter(INSPECTOR_RESULT_PARAMETER);
+        String resultKey = request.getQueryString();
         
         if (resultKey != null) {
             
             TreeInspectionResult result = (TreeInspectionResult) request.getSession(false).getAttribute(resultKey);
             PrintWriter out = response.getWriter();
             
-            out.println("<table border=\"1\">");
-            for (Entry<ComponentType, List<String>> entry : result.getComponents().entrySet()){
-                ComponentType type = entry.getKey();
-                List<String> components = entry.getValue();
-                
-                out.println("<tr>");
-                out.println("<td>"+type.getComponentTypeIdentifier()+"</td>");
-                out.println("<td>");
-                for(String component : components) {
-                    out.println(component + ",<br />");
-                }
-                out.println("</td>");
-                out.println("<tr>");
-            }
-            out.println("</table>");
+            TreeInspectionResultSerializer serializer = new TreeInspectionResultSerializer();
+            String json = serializer.getJSON(result);
+            
+            out.write(json);
+            
+//            out.println("<table border=\"1\">");
+//            for (Entry<ComponentType, List<String>> entry : result.getComponents().entrySet()){
+//                ComponentType type = entry.getKey();
+//                List<String> components = entry.getValue();
+//                
+//                out.println("<tr>");
+//                out.println("<td>"+type.getComponentTypeIdentifier()+"</td>");
+//                out.println("<td>");
+//                for(String component : components) {
+//                    out.println(component + ",<br />");
+//                }
+//                out.println("</td>");
+//                out.println("<tr>");
+//            }
+//            out.println("</table>");
         }
         
     }

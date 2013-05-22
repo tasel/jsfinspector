@@ -36,6 +36,8 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         public static final String SUPRESS_JQUERY_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_JQUERY";
         public static final String SUPRESS_CSS_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_CSS";
         public static final String RESULT_KEY_REQUEST_ATTRIBUTE = "de.thomasasel.jsfinspector.RESULT_KEY";
+        
+        public  static final String INSPECTOR_RESULT_PARAMETER = "jsfinspector_result";
     
     @Override
     public String getFamily() {
@@ -54,17 +56,12 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         String resultKey = createResultKey(context); 
         writer.startElement(TAG.SCRIPT, this);
         writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
-        writer.write(""
-            + "$(document).ready(function() {\n" +
-"                $.ajax({\n" +
-"                    url: \"jsfinspector?jsfinspector_result="+ resultKey +",\n" +
-"                    data: {\n" +
-"                       zipcode: 97201\n" +
-"                    }, success: function(data) {\n" +
-"                        alert(data);\n" +
-"                    }\n" +
-"                });\n" +
-"            });");
+//        writer.write("$.get('jsfinspector?"+INSPECTOR_RESULT_PARAMETER+"="+resultKey+"', function(data) {\n" +
+        writer.write("$.get('jsfinspector', '"+ resultKey+ "',function(data) {\n" +
+
+        "  x = data;\n" +
+"  alert(data);\n" +
+"});");
         writer.endElement(TAG.SCRIPT);
 
     }
