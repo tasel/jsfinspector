@@ -4,6 +4,7 @@
  */
 package de.thomasasel.jsf.inspector;
 
+import de.thomasasel.jsf.inspector.components.JSFInspector;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,18 +25,17 @@ class TreeInspectionListener implements PhaseListener {
 
     @Override
     public void afterPhase(PhaseEvent event) {
-        FacesContext ctx = event.getFacesContext();
-        UIViewRoot viewRoot = ctx.getViewRoot();
+        FacesContext context = event.getFacesContext();
+        UIViewRoot viewRoot = context.getViewRoot();
 
-        VisitContext vc = VisitContext.createVisitContext(ctx);
+        VisitContext vc = VisitContext.createVisitContext(context);
         TreeInspectionVisitor tiv = new TreeInspectionVisitor();
         viewRoot.visitTree(vc, tiv);
 
-        String key = new Long(System.currentTimeMillis()).toString();
+        String key = (String) context.getExternalContext().getRequestMap().get(JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE);
         
-        Map<String, Object> sessionMap = ctx.getExternalContext().getSessionMap();
+        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
         sessionMap.put(key, tiv.getResult());
-        System.out.println(key);
     }
 
     @Override

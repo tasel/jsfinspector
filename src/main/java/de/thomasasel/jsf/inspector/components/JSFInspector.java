@@ -13,6 +13,7 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIOutput;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
@@ -34,6 +35,7 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         
         public static final String SUPRESS_JQUERY_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_JQUERY";
         public static final String SUPRESS_CSS_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_CSS";
+        public static final String RESULT_KEY_REQUEST_ATTRIBUTE = "de.thomasasel.jsfinspector.RESULT_KEY";
     
     @Override
     public String getFamily() {
@@ -48,6 +50,22 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspect-inspector", null);
         writer.write("Inspector");
         writer.endElement(TAG.DIV);
+        
+        String resultKey = createResultKey(context); 
+        writer.startElement(TAG.SCRIPT, this);
+        writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
+        writer.write(""
+            + "$(document).ready(function() {\n" +
+"                $.ajax({\n" +
+"                    url: \"jsfinspector?jsfinspector_result="+ resultKey +",\n" +
+"                    data: {\n" +
+"                       zipcode: 97201\n" +
+"                    }, success: function(data) {\n" +
+"                        alert(data);\n" +
+"                    }\n" +
+"                });\n" +
+"            });");
+        writer.endElement(TAG.SCRIPT);
 
     }
 
@@ -84,6 +102,12 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
     private boolean suppressCSS(FacesContext context) {
         String param = context.getExternalContext().getInitParameter(SUPRESS_CSS_CONTEXT_PARAM);
         return param != null && param.trim().equalsIgnoreCase("true");
+    }
+
+    private String createResultKey(FacesContext context) {
+        String resultKey = new Long (System.currentTimeMillis()).toString();
+        context.getExternalContext().getRequestMap().put(RESULT_KEY_REQUEST_ATTRIBUTE, resultKey);
+        return resultKey;
     }
     
 }

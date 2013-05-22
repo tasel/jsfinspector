@@ -16,6 +16,8 @@ public class HTML {
 		public  static final String BR = "br";
 		public  static final String A = "a";
 
+                public  static final String SCRIPT = "script";
+
 	}
 
 	public static class ATTRIBUTE {
@@ -24,6 +26,7 @@ public class HTML {
 		public static final String BORDER = "BORDER";
 		public static final String ONCLICK = "onclick";
 		public static final String HREF = "href";
-	}
+		public static final String LANGUAGE = "language";
+        }
 
 }

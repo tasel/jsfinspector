@@ -7,7 +7,6 @@ package de.thomasasel.jsf.inspector;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.faces.component.UIComponent;
 
 /**
  *
@@ -16,7 +15,7 @@ import javax.faces.component.UIComponent;
 public class TreeInspectionResult {
     
     private int noncompositeCounter;
-    private Map<ComponentType, List<UIComponent>> components = new HashMap<ComponentType, List<UIComponent>>();
+    private Map<ComponentType, List<String>> components = new HashMap<ComponentType, List<String>>();
     private int compositeCounter;
 
     public int getNoncompositeCounter() {
@@ -27,11 +26,11 @@ public class TreeInspectionResult {
         this.noncompositeCounter = noncompositeCounter;
     }
 
-    public Map<ComponentType, List<UIComponent>> getComponents() {
+    public Map<ComponentType, List<String>> getComponents() {
         return components;
     }
 
-    public void setComponents(Map<ComponentType, List<UIComponent>> components) {
+    public void setComponents(Map<ComponentType, List<String>> components) {
         this.components = components;
     }
 
