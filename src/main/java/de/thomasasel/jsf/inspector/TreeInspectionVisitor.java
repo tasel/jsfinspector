@@ -30,11 +30,11 @@ class TreeInspectionVisitor implements VisitCallback {
             result.getComponents().put(componentType, new ArrayList<String>());
         }
         
-        result.getComponents().get(componentType).add(target.getClientId());
-        
         if (componentType.isComposite()) {
-            result.setCompositeCounter(result.getCompositeCounter() + 1);
-        } else result.setNoncompositeCounter(result.getNoncompositeCounter() + 1);
+            result.getComposites().get(componentType).add(target.getClientId());
+        } else {
+            result.getComponents().get(componentType).add(target.getClientId());
+        }
         
         return VisitResult.ACCEPT;
         

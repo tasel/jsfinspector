@@ -7,6 +7,7 @@ package de.thomasasel.jsf.inspector;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  *
@@ -14,16 +15,16 @@ import java.util.Map;
  */
 public class TreeInspectionResult {
     
-    private int noncompositeCounter;
     private Map<ComponentType, List<String>> components = new HashMap<ComponentType, List<String>>();
-    private int compositeCounter;
 
-    public int getNoncompositeCounter() {
-        return noncompositeCounter;
+    private Map<ComponentType, List<String>> composites = new HashMap<ComponentType, List<String>>();
+
+    public Map<ComponentType, List<String>> getComposites() {
+        return composites;
     }
 
-    public void setNoncompositeCounter(int noncompositeCounter) {
-        this.noncompositeCounter = noncompositeCounter;
+    public void setComposites(Map<ComponentType, List<String>> composites) {
+        this.composites = composites;
     }
 
     public Map<ComponentType, List<String>> getComponents() {
@@ -33,15 +34,56 @@ public class TreeInspectionResult {
     public void setComponents(Map<ComponentType, List<String>> components) {
         this.components = components;
     }
-
-    public int getCompositeCounter() {
-        return compositeCounter;
-    }
-
-    public void setCompositeCounter(int compositeCounter) {
-        this.compositeCounter = compositeCounter;
+    
+    @Override
+    public String toString(){
+        
+        String out = "[Composites: ";
+        for (Entry<ComponentType, List<String>> entry : composites.entrySet()) {
+            out += "["+entry.getKey().getComponentTypeIdentifier()+": ";
+            for (String id : entry.getValue()) {
+                out += id + ", "; 
+            }
+            out += "] ";
+        }
+       out += "] [Non-composites: ";
+ 
+       for (Entry<ComponentType, List<String>> entry : components.entrySet()) {
+            out += "["+entry.getKey().getComponentTypeIdentifier()+": ";
+            for (String id : entry.getValue()) {
+                out += id + ", "; 
+            }
+            out += "] ";
+        }
+        
+        out += "]";        
+        
+        return out;
     }
     
     
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TreeInspectionResult other = (TreeInspectionResult) obj;
+        if (this.components != other.components && (this.components == null || !this.components.equals(other.components))) {
+            return false;
+        }
+        if (this.composites != other.composites && (this.composites == null || !this.composites.equals(other.composites))) {
+            return false;
+        }
+        return true;
+    }
     
 }

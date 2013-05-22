@@ -36,6 +36,7 @@ class TreeInspectionListener implements PhaseListener {
         
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
         sessionMap.put(key, tiv.getResult());
+        System.out.println(tiv.getResult().toString());
     }
 
     @Override

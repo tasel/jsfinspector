@@ -33,7 +33,31 @@ public class ComponentType {
             identifier = target.getClass().getName();
             return new NonCompositeType(identifier);
         }
+        
+    }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ComponentType other = (ComponentType) obj;
+        if (this.componentType != other.componentType) {
+            return false;
+        }
+        if ((this.componentTypeIdentifier == null) ? (other.componentTypeIdentifier != null) : !this.componentTypeIdentifier.equals(other.componentTypeIdentifier)) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -72,4 +96,5 @@ public class ComponentType {
 
         COMPOSITE, NONCOMPOSITE;
     }
+    
 }
