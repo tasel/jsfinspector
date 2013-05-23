@@ -53,15 +53,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>org.codehaus.jackson</groupId>
-          <artifactId>jackson-core-asl</artifactId>
-          <version>1.9.12</version>
-        </dependency>       
-        <dependency>
-          <groupId>org.codehaus.jackson</groupId>
-          <artifactId>jackson-mapper-asl</artifactId>
-          <version>1.5.0</version>
-        </dependency>         
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>    
     </dependencies>
 
     <build>

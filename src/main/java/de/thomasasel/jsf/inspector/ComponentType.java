@@ -33,7 +33,11 @@ public class ComponentType {
             identifier = target.getClass().getName();
             return new NonCompositeType(identifier);
         }
-        
+    }
+    
+    @Override
+    public String toString() {
+        return componentTypeIdentifier;
     }
 
     @Override

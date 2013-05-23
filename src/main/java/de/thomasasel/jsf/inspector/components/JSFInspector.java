@@ -9,11 +9,8 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import static de.thomasasel.jsf.inspector.components.HTML.*;
-import javax.faces.application.Resource;
-import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIOutput;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
@@ -56,11 +53,10 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         String resultKey = createResultKey(context); 
         writer.startElement(TAG.SCRIPT, this);
         writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
-//        writer.write("$.get('jsfinspector?"+INSPECTOR_RESULT_PARAMETER+"="+resultKey+"', function(data) {\n" +
         writer.write("$.get('jsfinspector', '"+ resultKey+ "',function(data) {\n" +
-
-        "  x = data;\n" +
-"  alert(data);\n" +
+    "  console.log(data);\n" + 
+    "  parsed = jQuery.parseJSON(data);\n" +
+    "  console.log(parsed);\n" +
 "});");
         writer.endElement(TAG.SCRIPT);
 
