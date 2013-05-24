@@ -9,6 +9,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import static de.thomasasel.jsf.inspector.components.HTML.*;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AbortProcessingException;
@@ -23,6 +24,7 @@ import javax.faces.event.PostAddToViewEvent;
  */
 @FacesComponent(JSFInspector.TYPE)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
+@ResourceDependency(library = "inspector", name="inspector.js" , target = "body")
 public class JSFInspector extends UIComponentBase implements ComponentSystemEventListener {
 
     	/** Component Type */
@@ -53,13 +55,8 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         String resultKey = createResultKey(context); 
         writer.startElement(TAG.SCRIPT, this);
         writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
-        writer.write("$.get('jsfinspector', '"+ resultKey+ "',function(data) {\n" +
-    "  console.log(data);\n" + 
-    "  parsed = jQuery.parseJSON(data);\n" +
-    "  console.log(parsed);\n" +
-"});");
+        writer.write("$.get('jsfinspector', '"+ resultKey+ "',function(data) {handleResponse(data);});");
         writer.endElement(TAG.SCRIPT);
-
     }
 
     @Override

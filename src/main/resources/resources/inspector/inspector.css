@@ -4,11 +4,32 @@
     position: absolute;
     top:0;
     left:0;
-    width:50px;
-    height:15px;
+    /*width:50px;*/
+    /*height:15px;*/
     background-color: #ffcc00;
     font-family: Arial, Verdana, sans-serif;
     font-size:8pt;
     padding:5px;
     
 }
+
+.jsfinspect-inspector table {
+    
+    border: 1px solid #000;
+    padding: 3px;
+    
+}
+
+.jsfinspect-inspector td {
+    padding:3px;
+}
+
+.jsfinspect-inspector .evenRow {
+    background-color: #fff;
+}
+
+.jsfinspect-inspector .oddRow {
+    background-color: #dcdcdc;
+}
+
+
