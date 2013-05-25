@@ -39,21 +39,53 @@ function createList(components) {
     for (var component in components) {
         
         var counter = 0;
-        var idList = "";
+        
+        var idCell = $("<td></td>");
+        
         for (var id in components[component]){
             counter++;
-            idList += components[component][id] +"<br />";
+            
+            var jsfClientId = components[component][id];
+            var link = $("<a>"+jsfClientId+"</a>");
+            $(link).mouseover({cid: jsfClientId}, function (event) {
+                highlight(event.data.cid);
+            });
+            $(link).mouseout({cid: jsfClientId}, function (event) {
+                flatten(event.data.cid);
+            });
+
+            idCell.append(link).append("<br />");
         }
         
-        container.append("<tr><td>" + component + "("+counter+")" + "</td><td>"+idList+"</td></tr>");
+        var componentCell = $("<td>"+component+ " ("+counter+")" +"</td>");
+        var row = $("<tr></tr>");
+        row.append(componentCell);
+        row.append(idCell);
+        container.append(row);
         overallCounter += counter;
     }
     
-    container.append("<tr><tfoot><td>Total number of components:</td><td>"+ overallCounter +"</td></tfoot></tr>");
+    container.append("<tfoot><tr><td>Total number of components:</td><td>"+ overallCounter +"</td></tr></tfoot>");
     
     // Add banding
     $(".jsfinspect-inspector table tr:even").addClass("evenRow");
     $(".jsfinspect-inspector table tr:odd").addClass("oddRow");
     
+}
+
+function highlight(jsfClientId) {
+    var escapedClientId = escapeClientId(jsfClientId);
+    $(escapedClientId).addClass("jsfinspector-highlight");
+    console.log($(escapedClientId));
+}
+
+function flatten(jsfClientId) {
+    var escapedClientId = escapeClientId(jsfClientId);
+    $(escapedClientId).removeClass("jsfinspector-highlight");
+}
+
+
+function escapeClientId(clientId) {
+    return "#" + clientId.replace(/:/g,"\\:");
 }
 

@@ -21,6 +21,7 @@
     border: 1px solid #000;
     padding: 3px;
     margin-top:10px;
+    background-color:#fff;
 }
 
 .jsfinspect-inspector td {
@@ -29,6 +30,7 @@
 
 .jsfinspect-inspector tfoot {
     font-weight: bold;
+    background-color: #ffcc00;
 }
 
 .jsfinspect-inspector .evenRow {
@@ -36,7 +38,9 @@
 }
 
 .jsfinspect-inspector .oddRow {
-    background-color: #dcdcdc;
+    background-color: #cdcdcd;
 }
 
-
+.jsfinspector-highlight {
+    border: 2px dashed #f00;
+}

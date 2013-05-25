@@ -20,8 +20,10 @@
                 <f:ajax />
             </h:commandButton>
             <br />
-            <h:outputLabel id="outputLabel" value="output: " for="output"/>
-            <h:outputText id="output" value="#{flash.input}" />
+            <h:panelGrid id="grid">
+                <h:outputLabel id="outputLabel" value="output: " for="output"/>
+                <h:outputText id="output" value="#{flash.input}" />
+            </h:panelGrid>
             <i:inspector id="inspector"/>
         </h:form>
     </h:body>
