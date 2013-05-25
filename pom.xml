@@ -9,6 +9,14 @@
 
     <name>JSF-Inspector</name>
     
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
 
     <properties>
         <netbeans.compile.on.save>all</netbeans.compile.on.save>
@@ -88,7 +96,7 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
-<!--                        <configuration>
+                        <!--                        <configuration>
                             <classifier>client</classifier>
                             <includes>
                                 <include>**/service/*</include>
