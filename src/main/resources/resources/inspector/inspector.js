@@ -2,14 +2,17 @@ $( document ).ready(function() {
     // Move inspector to top
     $("body").prepend($(".jsfinspect-inspector"));
     
-    // Add Click-Handlers
+    // Add Click-Handlers for inspector
     $(".jsfinspect-inspector").click(function(event){
-        var container = $(".jsfinspect-inspector");
-        if ($(container).hasClass("jsfinspect-inspector-hidden")){
-            container.removeClass("jsfinspect-inspector-hidden");
-        } else {
-            container.addClass("jsfinspect-inspector-hidden");
-        }
+        
+        var container = $("#jsfinspector-inspector-content").slideToggle();
+        
+//        var container = $(".jsfinspect-inspector");
+//        if ($(container).hasClass("jsfinspect-inspector-hidden")){
+//            container.removeClass("jsfinspect-inspector-hidden");
+//        } else {
+//            container.addClass("jsfinspect-inspector-hidden");
+//        }
     });
 });
 
@@ -32,7 +35,7 @@ function handleResponse(data) {
 
 function createList(components) {
 
-    $(".jsfinspect-inspector").append("<table border=\"1\">");
+    $("#jsfinspector-inspector-content").append("<table border=\"1\">");
     var container = $(".jsfinspect-inspector table");
     var overallCounter = 0;
     

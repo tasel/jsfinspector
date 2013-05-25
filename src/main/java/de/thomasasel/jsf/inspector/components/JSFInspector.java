@@ -49,7 +49,13 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         
         writer.startElement(TAG.DIV, this);
         writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspect-inspector jsfinspect-inspector-hidden", null);
+        writer.startElement(TAG.DIV, this);
+        writer.writeAttribute(ATTRIBUTE.ID, "jsfinspector-inspector-heading", null);
         writer.write("Inspector");
+        writer.endElement(TAG.DIV);
+        writer.startElement(TAG.DIV, this);
+        writer.writeAttribute(ATTRIBUTE.ID, "jsfinspector-inspector-content", null);
+        writer.endElement(TAG.DIV);
         writer.endElement(TAG.DIV);
         
         String resultKey = createResultKey(context); 

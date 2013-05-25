@@ -27,6 +27,8 @@ public class HTML {
 		public static final String ONCLICK = "onclick";
 		public static final String HREF = "href";
 		public static final String LANGUAGE = "language";
+		public static final String ID = "id";
+                
         }
 
 }
