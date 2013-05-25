@@ -1,5 +1,5 @@
 
-.jsfinspect-inspector {
+.jsfinspector-inspector {
 /*    background-color: #ffcc00;*/
     font-family: Arial, Verdana, sans-serif;
     font-size:8pt;
@@ -7,7 +7,7 @@
     
 }
 
-#jsfinspector-inspector-heading{
+#jsfinspector-inspector-heading {
     background-color: #ffcc00;
     width: 60px;
     height: 15px;
@@ -21,17 +21,7 @@
 #jsfinspector-inspector-content {
     display:none;
 }
-
-.jsfinspect-inspector-hidden {
-/*    position: absolute;
-    top:0;
-    left:0;
-    width:50px;
-    height:15px;
-    overflow: hidden;*/
-}
-
-.jsfinspect-inspector table {
+.jsfinspector-inspector table {
     
     border: 1px solid #000;
     padding: 3px;
@@ -39,20 +29,20 @@
     background-color:#fff;
 }
 
-.jsfinspect-inspector td {
+.jsfinspector-inspector td {
     padding:3px;
 }
 
-.jsfinspect-inspector tfoot {
+.jsfinspector-inspector tfoot {
     font-weight: bold;
     background-color: #ffcc00;
 }
 
-.jsfinspect-inspector .evenRow {
+.jsfinspector-inspector .evenRow {
     background-color: #fff;
 }
 
-.jsfinspect-inspector .oddRow {
+.jsfinspector-inspector .oddRow {
     background-color: #cdcdcd;
 }
 

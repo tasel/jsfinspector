@@ -48,7 +48,7 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         ResponseWriter writer = context.getResponseWriter();
         
         writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspect-inspector jsfinspect-inspector-hidden", null);
+        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-inspector jsfinspector-inspector-hidden", null);
         writer.startElement(TAG.DIV, this);
         writer.writeAttribute(ATTRIBUTE.ID, "jsfinspector-inspector-heading", null);
         writer.write("Inspector");

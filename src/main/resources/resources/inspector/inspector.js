@@ -1,22 +1,22 @@
+/**
+ * Client-side bootstrap
+ */
 $( document ).ready(function() {
     // Move inspector to top
-    $("body").prepend($(".jsfinspect-inspector"));
+    $("body").prepend($(".jsfinspector-inspector"));
     
     // Add Click-Handlers for inspector
-    $(".jsfinspect-inspector").click(function(event){
-        
-        var container = $("#jsfinspector-inspector-content").slideToggle();
-        
-//        var container = $(".jsfinspect-inspector");
-//        if ($(container).hasClass("jsfinspect-inspector-hidden")){
-//            container.removeClass("jsfinspect-inspector-hidden");
-//        } else {
-//            container.addClass("jsfinspect-inspector-hidden");
-//        }
+    $(".jsfinspector-inspector").click(function(event){
+        $("#jsfinspector-inspector-content").slideToggle();
     });
 });
 
-
+/**
+ * Called upon incoming asynchronous response. 
+ * Takes care of calling functions to create the output.
+ * 
+ * @param {JSON} data payload data containing information about the previous lifecycle run
+ */
 function handleResponse(data) {
 
     if (data) {
@@ -24,19 +24,26 @@ function handleResponse(data) {
          var json = jQuery.parseJSON(data);
         
         if (json.components && ! jQuery.isEmptyObject(json.components)) {
+            // Create the visual output for components
             createList(json.components);
         }
         
         if (json.composites && ! jQuery.isEmptyObject(json.composites)){
+            // Create the visual output for composites
             createList(json.composites);
         }
     }
 }
 
+/**
+ * Creates the visual output for a set of components.
+ * 
+ * @param components
+ */
 function createList(components) {
 
     $("#jsfinspector-inspector-content").append("<table border=\"1\">");
-    var container = $(".jsfinspect-inspector table");
+    var container = $(".jsfinspector-inspector table");
     var overallCounter = 0;
     
     for (var component in components) {
@@ -71,23 +78,40 @@ function createList(components) {
     container.append("<tfoot><tr><td>Total number of components:</td><td>"+ overallCounter +"</td></tr></tfoot>");
     
     // Add banding
-    $(".jsfinspect-inspector table tr:even").addClass("evenRow");
-    $(".jsfinspect-inspector table tr:odd").addClass("oddRow");
+    $(".jsfinspector-inspector table tr:even").addClass("evenRow");
+    $(".jsfinspector-inspector table tr:odd").addClass("oddRow");
     
 }
 
+/**
+ * Adds a CSS class to HTML elements with a given JSF ClientId.
+ * 
+ * @param jsfClientId
+ */
 function highlight(jsfClientId) {
     var escapedClientId = escapeClientId(jsfClientId);
     $(escapedClientId).addClass("jsfinspector-highlight");
     console.log($(escapedClientId));
 }
 
+/**
+ * Inverse function to highlight(jsfClientId)
+ * 
+ * @param jsfClientId
+ */
 function flatten(jsfClientId) {
     var escapedClientId = escapeClientId(jsfClientId);
     $(escapedClientId).removeClass("jsfinspector-highlight");
 }
 
 
+/**
+ * Transforms a given JSF ClientId to a format usable by jQuery.
+ * E.g. "form:foo" -> "#form\\:foo"
+ * 
+ * @param clientId
+ * @returns {String}
+ */
 function escapeClientId(clientId) {
     return "#" + clientId.replace(/:/g,"\\:");
 }
