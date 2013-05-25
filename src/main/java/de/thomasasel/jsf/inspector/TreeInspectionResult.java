@@ -18,60 +18,35 @@ package de.thomasasel.jsf.inspector;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
- *
- * @author tasel
+ * Encapsulates the data gathered during a Lifecycle run.
+ * 
+ * @author Thomas Asel
  */
 public class TreeInspectionResult {
     
+    // Collection of component data
     private Map<ComponentType, List<String>> components = new HashMap<ComponentType, List<String>>();
 
+    // Collection of composite data
     private Map<ComponentType, List<String>> composites = new HashMap<ComponentType, List<String>>();
 
+    /**
+     * Returns mapping of {@link ComponentType} and a List of Client-Ids. 
+     * @return Map<ComponentType, List<String>> collection describing composites found in component tree.
+     */
     public Map<ComponentType, List<String>> getComposites() {
         return composites;
     }
-
-    public void setComposites(Map<ComponentType, List<String>> composites) {
-        this.composites = composites;
-    }
-
+    
+    /**
+     * Returns mapping of {@link ComponentType} and a List of Client-Ids.
+     * @return Map<ComponentType, List<String>> collection describing composites found in component tree.
+     */
     public Map<ComponentType, List<String>> getComponents() {
         return components;
     }
-
-    public void setComponents(Map<ComponentType, List<String>> components) {
-        this.components = components;
-    }
-    
-    @Override
-    public String toString(){
-        
-        String out = "[Composites: ";
-        for (Entry<ComponentType, List<String>> entry : composites.entrySet()) {
-            out += "["+entry.getKey().getComponentTypeIdentifier()+": ";
-            for (String id : entry.getValue()) {
-                out += id + ", "; 
-            }
-            out += "] ";
-        }
-       out += "] [Non-composites: ";
- 
-       for (Entry<ComponentType, List<String>> entry : components.entrySet()) {
-            out += "["+entry.getKey().getComponentTypeIdentifier()+": ";
-            for (String id : entry.getValue()) {
-                out += id + ", "; 
-            }
-            out += "] ";
-        }
-        
-        out += "]";        
-        
-        return out;
-    }
-    
     
     @Override
     public int hashCode() {
@@ -96,5 +71,4 @@ public class TreeInspectionResult {
         }
         return true;
     }
-    
 }

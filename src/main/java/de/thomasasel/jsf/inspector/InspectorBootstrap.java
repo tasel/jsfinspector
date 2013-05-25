@@ -28,8 +28,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
- * @author tasel
+ * Responsible for the bootstrapping process. 
+ * Registers Listeners to install JSFInspector in the current Application.
+ * 
+ * @author Thomas Asel
  */
 public class InspectorBootstrap implements SystemEventListener {
     private static final Logger LOG = LoggerFactory.getLogger(InspectorBootstrap.class.getName());
@@ -58,14 +60,15 @@ public class InspectorBootstrap implements SystemEventListener {
         return source instanceof Application;
     }
 
+    /**
+     * Adds {@link TreeInspectionListener} to the current application.
+     * @param event 
+     */
     private void bootstrap(PostConstructApplicationEvent event) {
         
         LifecycleFactory lcFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
         Lifecycle lc = lcFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
         lc.addPhaseListener(new TreeInspectionListener());
-        
-        
     }
-    
     
 }

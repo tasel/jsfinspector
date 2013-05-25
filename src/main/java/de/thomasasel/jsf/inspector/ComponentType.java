@@ -15,14 +15,13 @@
  */
 package de.thomasasel.jsf.inspector;
 
-import javax.faces.application.Resource;
-import javax.faces.component.UIComponent;
-
 /**
- *
- * @author tasel
+ * Used to distinguish the nature of a component. Composites are distinguished from Non-Composites.
+ * This is the base class for both Component-Types.
+ * 
+ * @author Thomas Asel
  */
-public class ComponentType {
+public abstract class ComponentType {
 
     private final Type componentType;
     private final String componentTypeIdentifier;
@@ -32,20 +31,6 @@ public class ComponentType {
         this.componentTypeIdentifier = componentTypeIdentifier;
     }
 
-    static ComponentType build(UIComponent target) {
-
-        String identifier;
-        
-        if (UIComponent.isCompositeComponent(target)) {
-            Resource resource = (Resource) target.getAttributes().get(Resource.COMPONENT_RESOURCE_KEY);
-            identifier = resource.getResourceName();
-            return new CompositeType(identifier);
-        } else {
-            identifier = target.getClass().getName();
-            return new NonCompositeType(identifier);
-        }
-    }
-    
     @Override
     public String toString() {
         return componentTypeIdentifier;
@@ -89,24 +74,45 @@ public class ComponentType {
         return componentTypeIdentifier;
     }
 
+    /**
+     * Convenience method
+     * @return 
+     */
     boolean isComposite() {
         return componentType == Type.COMPOSITE;
     }
 
+    /**
+     * This subtype describes typical components
+     */
     public static class NonCompositeType extends ComponentType {
 
+        /**
+         * Constructor
+         * @param compositeTypeIdentifier 
+         */
         public NonCompositeType(String compositeTypeIdentifier) {
             super(Type.NONCOMPOSITE, compositeTypeIdentifier);
         }
     }
 
+    /**
+     * This subtype describes Composites Components
+     */
     public static class CompositeType extends ComponentType {
-
+      
+        /**
+         * Constructor
+         * @param componentTypeIdentifier 
+         */
         public CompositeType(String componentTypeIdentifier) {
             super(Type.COMPOSITE, componentTypeIdentifier);
         }
     }
 
+    /**
+     * Enumeration of the distinguished component types.
+     */
     enum Type {
 
         COMPOSITE, NONCOMPOSITE;

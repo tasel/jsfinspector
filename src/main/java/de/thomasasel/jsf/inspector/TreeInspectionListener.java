@@ -16,11 +16,7 @@
 package de.thomasasel.jsf.inspector;
 
 import de.thomasasel.jsf.inspector.components.JSFInspector;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.context.FacesContext;
@@ -29,8 +25,12 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 /**
+ * This {@link PhaseListener} initiates analysis of the component tree and stores the result in the session map
+ * using the key {@link JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE}.
  *
- * @author tasel
+ * @see javax.faces.event.PhaseListener
+ * 
+ * @author Thomas Asel
  */
 class TreeInspectionListener implements PhaseListener {
 
@@ -47,7 +47,6 @@ class TreeInspectionListener implements PhaseListener {
         
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
         sessionMap.put(key, tiv.getResult());
-        System.out.println(tiv.getResult().toString());
     }
 
     @Override

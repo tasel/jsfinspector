@@ -15,7 +15,11 @@
  */
 package de.thomasasel.jsf.inspector.components;
 
-@SuppressWarnings("javadoc")
+/**
+ * Utility class that encapsules various HTML tags and attributes to enable typesafe respone generation.
+ * 
+ * @author Thomas Asel
+ */
 public class HTML {
 
 	public static class TAG {

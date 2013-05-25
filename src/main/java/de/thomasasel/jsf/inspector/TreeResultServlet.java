@@ -25,13 +25,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * This servlet services async request issued by the {@link JSFInpsector} component.
+ * Extracts and removes the component tree analysis results from the session map. 
+ * The reuests query string is expected to contain the key for the reults to retrieve.
+ * Sends a JSON-encoded response to be used on the client side.
+ * 
  * @author Thomas Asel
  */
 @WebServlet(urlPatterns = "/jsfinspector")
 public class TreeResultServlet extends HttpServlet {
-
-    
     
     @Override
      public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -41,6 +43,8 @@ public class TreeResultServlet extends HttpServlet {
         if (resultKey != null) {
             
             TreeInspectionResult result = (TreeInspectionResult) request.getSession(false).getAttribute(resultKey);
+            request.getSession(false).removeAttribute(resultKey);
+            
             PrintWriter out = response.getWriter();
 
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -48,8 +52,5 @@ public class TreeResultServlet extends HttpServlet {
             
             out.write(json);
         }
-        
     }
-    
-    
 }

@@ -15,14 +15,16 @@
  */
 package de.thomasasel.jsf.inspector.components;
 
+import de.thomasasel.jsf.inspector.TreeResultServlet;
+import de.thomasasel.jsf.inspector.components.HTML.ATTRIBUTE;
+import de.thomasasel.jsf.inspector.components.HTML.TAG;
 import java.io.IOException;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import static de.thomasasel.jsf.inspector.components.HTML.*;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIOutput;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
@@ -30,8 +32,14 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
 /**
- *
- * @author tasel
+ * This component displays the output of a componen tree analysis.
+ * The component will issue an async request to {@link TreeResultServlet}. This is neccessary since analysis of the component tree 
+ * is not finished yet when this component is rendered.
+ * 
+ * The tedious part of rendering is shifted to the client side using jQuery, so this component renders just a stub and a script to execute
+ * upon page load.
+ * 
+ * @author Thomas Asel
  */
 @FacesComponent(JSFInspector.TYPE)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
@@ -58,6 +66,7 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
     public void encodeEnd(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         
+        // render the stub, jQuery will fill it on the client side.
         writer.startElement(TAG.DIV, this);
         writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-inspector jsfinspector-inspector-hidden", null);
         writer.startElement(TAG.DIV, this);
@@ -69,6 +78,7 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         writer.endElement(TAG.DIV);
         writer.endElement(TAG.DIV);
         
+        // Render the script to issue an async request upon page load
         String resultKey = createResultKey(context); 
         writer.startElement(TAG.SCRIPT, this);
         writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
@@ -76,6 +86,17 @@ public class JSFInspector extends UIComponentBase implements ComponentSystemEven
         writer.endElement(TAG.SCRIPT);
     }
 
+    /**
+     * Determine if the external resources should be included in the current view.
+     * It is possible to suppress the resource dependency to the provided version of jQuery and the CSS file containing the basic stylesheets.
+     * 
+     * If jQuery is already used in the project, the context-param "de.thomasasel.jsfinspector.SUPPRESS_JQUERY" should be set to true.
+     * 
+     * Setting the context-param "de.thomasasel.jsfinspector.SUPPRESS_CSS" to true will suprress the provided stylesheet.
+     * 
+     * @param event
+     * @throws AbortProcessingException 
+     */
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
             

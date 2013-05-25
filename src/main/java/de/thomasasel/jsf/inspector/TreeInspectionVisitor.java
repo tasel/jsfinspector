@@ -15,18 +15,21 @@
  */
 package de.thomasasel.jsf.inspector;
 
+import de.thomasasel.jsf.inspector.ComponentType.CompositeType;
+import de.thomasasel.jsf.inspector.ComponentType.NonCompositeType;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.faces.application.Resource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 
 /**
- *
- * @author tasel
+ * Traverses the component tree and creates a record of the found components.
+ * 
+ * @see javax.faces.component.visit.VisitCallback
+ * 
+ * @author Thomas Asel
  */
 class TreeInspectionVisitor implements VisitCallback {
     
@@ -35,7 +38,7 @@ class TreeInspectionVisitor implements VisitCallback {
     @Override
     public VisitResult visit(VisitContext context, UIComponent target) {
         
-        ComponentType componentType = ComponentType.build(target); 
+        ComponentType componentType = build(target); 
         
         if (result.getComponents().get(componentType) == null) {
             result.getComponents().put(componentType, new ArrayList<String>());
@@ -51,8 +54,31 @@ class TreeInspectionVisitor implements VisitCallback {
         
     }
 
+    /**
+     * Returns the recorded component information.
+     * @return 
+     */
     public TreeInspectionResult getResult() {
         return result;
     }
-    
+
+     /**
+     * Builder method, used to create the appropriate sub-type of {@link ComponentType} depending on the nature of target.
+     * 
+     * @param target
+     * @return 
+     */
+    static ComponentType build(UIComponent target) {
+
+        String identifier;
+        
+        if (UIComponent.isCompositeComponent(target)) {
+            Resource resource = (Resource) target.getAttributes().get(Resource.COMPONENT_RESOURCE_KEY);
+            identifier = resource.getResourceName();
+            return new CompositeType(identifier);
+        } else {
+            identifier = target.getClass().getName();
+            return new NonCompositeType(identifier);
+        }
+    }
 }
