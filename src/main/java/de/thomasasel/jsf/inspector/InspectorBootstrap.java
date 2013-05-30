@@ -68,7 +68,7 @@ public class InspectorBootstrap implements SystemEventListener {
         
         LifecycleFactory lcFactory = (LifecycleFactory) FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
         Lifecycle lc = lcFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-        lc.addPhaseListener(new TreeInspectionListener());
+        lc.addPhaseListener(new InspectorListener());
     }
     
 }

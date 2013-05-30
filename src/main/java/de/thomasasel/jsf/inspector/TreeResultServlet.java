@@ -42,7 +42,7 @@ public class TreeResultServlet extends HttpServlet {
         
         if (resultKey != null) {
             
-            TreeInspectionResult result = (TreeInspectionResult) request.getSession(false).getAttribute(resultKey);
+            InspectionResults result = (InspectionResults) request.getSession(false).getAttribute(resultKey);
             request.getSession(false).removeAttribute(resultKey);
             
             PrintWriter out = response.getWriter();

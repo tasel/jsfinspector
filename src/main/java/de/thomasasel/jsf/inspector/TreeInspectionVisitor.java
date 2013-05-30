@@ -33,7 +33,7 @@ import javax.faces.component.visit.VisitResult;
  */
 class TreeInspectionVisitor implements VisitCallback {
     
-    private final TreeInspectionResult result = new TreeInspectionResult();
+    private final InspectionResults result = new InspectionResults();
     
     @Override
     public VisitResult visit(VisitContext context, UIComponent target) {
@@ -61,7 +61,7 @@ class TreeInspectionVisitor implements VisitCallback {
      * Returns the recorded component information.
      * @return 
      */
-    public TreeInspectionResult getResult() {
+    public InspectionResults getResult() {
         return result;
     }
 

@@ -24,13 +24,16 @@ import java.util.Map;
  * 
  * @author Thomas Asel
  */
-public class TreeInspectionResult {
+public class InspectionResults {
     
     // Collection of component data
     private Map<ComponentType, List<String>> components = new HashMap<ComponentType, List<String>>();
 
     // Collection of composite data
     private Map<ComponentType, List<String>> composites = new HashMap<ComponentType, List<String>>();
+    
+    // Duration of lifecycle phases
+    private String[] phaseDurations = new String[6];
 
     /**
      * Returns mapping of {@link ComponentType} and a List of Client-Ids. 
@@ -47,6 +50,10 @@ public class TreeInspectionResult {
     public Map<ComponentType, List<String>> getComponents() {
         return components;
     }
+
+    public String[] getPhaseDurations() {
+        return phaseDurations;
+    }
     
     @Override
     public int hashCode() {
@@ -62,7 +69,7 @@ public class TreeInspectionResult {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final TreeInspectionResult other = (TreeInspectionResult) obj;
+        final InspectionResults other = (InspectionResults) obj;
         if (this.components != other.components && (this.components == null || !this.components.equals(other.components))) {
             return false;
         }
