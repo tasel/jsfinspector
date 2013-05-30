@@ -27,10 +27,18 @@
     padding: 3px;
     margin-top:10px;
     background-color:#fff;
+    width: 50%;
 }
 
 .jsfinspector-inspector td {
     padding:3px;
+}
+
+.jsfinspector-inspector thead td {
+    text-align: center;
+    font-weight:bold;
+    color:#fff;
+    background-color: #000;
 }
 
 .jsfinspector-inspector tfoot {

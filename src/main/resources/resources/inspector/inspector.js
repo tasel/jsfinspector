@@ -41,12 +41,12 @@ function handleResponse(data) {
         
         if (json.components && ! jQuery.isEmptyObject(json.components)) {
             // Create the visual output for components
-            createList(json.components);
+            createList(json.components, "Components");
         }
         
         if (json.composites && ! jQuery.isEmptyObject(json.composites)){
             // Create the visual output for composites
-            createList(json.composites);
+            createList(json.composites, "Composite Components");
         }
     }
 }
@@ -56,10 +56,16 @@ function handleResponse(data) {
  * 
  * @param components
  */
-function createList(components) {
+function createList(components, title) {
 
-    $("#jsfinspector-inspector-content").append("<table border=\"1\">");
-    var container = $(".jsfinspector-inspector table");
+    var table = $("<table border=\"1\">");
+    $("#jsfinspector-inspector-content").append(table);
+    
+    
+    if (title) {
+       table.append("<thead><tr><td colspan=\"2\">"+title+"</td></tr></thead>")
+    }
+    
     var overallCounter = 0;
     
     for (var component in components) {
@@ -87,11 +93,11 @@ function createList(components) {
         var row = $("<tr></tr>");
         row.append(componentCell);
         row.append(idCell);
-        container.append(row);
+        table.append(row);
         overallCounter += counter;
     }
     
-    container.append("<tfoot><tr><td>Total number of components:</td><td>"+ overallCounter +"</td></tr></tfoot>");
+    table.append("<tfoot><tr><td>Total number of components:</td><td>"+ overallCounter +"</td></tr></tfoot>");
     
     // Add banding
     $(".jsfinspector-inspector table tr:even").addClass("evenRow");

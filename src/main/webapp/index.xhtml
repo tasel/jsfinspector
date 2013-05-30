@@ -3,7 +3,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:i="http://thomas-asel.de/jsfinspector">
+      xmlns:i="http://thomas-asel.de/jsfinspector"
+      xmlns:comp="http://java.sun.com/jsf/composite/composites">
 
     <h:head>
 
@@ -20,11 +21,16 @@
                 <f:ajax />
             </h:commandButton>
             <br />
-            <h:panelGrid id="grid">
+            <h:panelGrid id="grid" columns="1">
                 <h:outputLabel id="outputLabel" value="output: " for="output"/>
                 <h:outputText id="output" value="#{flash.input}" />
             </h:panelGrid>
             <i:inspector id="inspector"/>
+            <h:panelGrid id="grid2" columns="1">
+                <comp:foo id="foo" text="bar" />
+                <comp:greeting id="greeting" text="Welt" />
+            </h:panelGrid>
+            
         </h:form>
     </h:body>
 
