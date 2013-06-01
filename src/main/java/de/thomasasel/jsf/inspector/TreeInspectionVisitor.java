@@ -18,6 +18,9 @@ package de.thomasasel.jsf.inspector;
 import de.thomasasel.jsf.inspector.ComponentType.CompositeType;
 import de.thomasasel.jsf.inspector.ComponentType.NonCompositeType;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
@@ -26,43 +29,42 @@ import javax.faces.component.visit.VisitResult;
 
 /**
  * Traverses the component tree and creates a record of the found components.
+ * The results are stored in the {@link TreeInspectionVisitContext} passed to {@link #visit(javax.faces.component.visit.VisitContext, javax.faces.component.UIComponent)}
  * 
  * @see javax.faces.component.visit.VisitCallback
  * 
  * @author Thomas Asel
  */
 class TreeInspectionVisitor implements VisitCallback {
+        
+    private Map<ComponentType, List<String>> components = new HashMap<ComponentType, List<String>>();
+    private Map<ComponentType, List<String>> composites = new HashMap<ComponentType, List<String>>();
     
-    private final InspectionResults result = new InspectionResults();
-    
+    /**
+     * 
+     * @param ctx Instance of {@link TreeInspectionVisitContext}
+     * @param target
+     * @return 
+     */
     @Override
     public VisitResult visit(VisitContext context, UIComponent target) {
-        
+
         ComponentType componentType = build(target); 
         
-        
         if (componentType.isComposite()) {
-            if (result.getComposites().get(componentType) == null) {
-                result.getComposites().put(componentType, new ArrayList<String>());
+            if (composites.get(componentType) == null) {
+                composites.put(componentType, new ArrayList<String>());
             }
-            result.getComposites().get(componentType).add(target.getClientId());
+            composites.get(componentType).add(target.getClientId());
         } else {
-            if (result.getComponents().get(componentType) == null) {
-                result.getComponents().put(componentType, new ArrayList<String>());
+            if (components.get(componentType) == null) {
+                components.put(componentType, new ArrayList<String>());
             }
-            result.getComponents().get(componentType).add(target.getClientId());
+            components.get(componentType).add(target.getClientId());
         }
         
         return VisitResult.ACCEPT;
         
-    }
-
-    /**
-     * Returns the recorded component information.
-     * @return 
-     */
-    public InspectionResults getResult() {
-        return result;
     }
 
      /**
@@ -84,4 +86,13 @@ class TreeInspectionVisitor implements VisitCallback {
             return new NonCompositeType(identifier);
         }
     }
+
+    public Map<ComponentType, List<String>> getComponents() {
+        return components;
+    }
+
+    public Map<ComponentType, List<String>> getComposites() {
+        return composites;
+    }
+    
 }

@@ -15,7 +15,7 @@
  */
 
 /**
- * Client-side bootstrap
+ * Client-side bootstrapping
  */
 $( document ).ready(function() {
     // Move inspector to top
@@ -47,6 +47,11 @@ function handleResponse(data) {
         if (json.composites && ! jQuery.isEmptyObject(json.composites)){
             // Create the visual output for composites
             createList(json.composites, "Composite Components");
+        }
+        
+        if (json.phaseResults && ! jQuery.isEmptyObject(json.phaseResults)) {
+            // Create visual output for phase results
+            createPhaseResults(json.phaseResults);
         }
     }
 }
@@ -102,6 +107,24 @@ function createList(components, title) {
     // Add banding
     $(".jsfinspector-inspector table tr:even").addClass("evenRow");
     $(".jsfinspector-inspector table tr:odd").addClass("oddRow");
+    
+}
+
+function createPhaseResults(phaseResults) {
+    
+    var table = $("<table border=\"1\">");
+    table.addClass("jsfinspector-phaseresults");
+    $("#jsfinspector-inspector-content").append(table);
+    table.append("<thead><tr><td colspan=\"6\">Phase Results</td></tr></thead>");
+    
+    var row = $("<tr></tr>");
+    for (var phase in phaseResults) {
+        
+        var cell = $("<td>"+phaseResults[phase].duration+" ms </td>");
+        cell.addClass(phaseResults[phase].status.toLowerCase());
+        row.append(cell);
+    }
+    table.append(row);
     
 }
 

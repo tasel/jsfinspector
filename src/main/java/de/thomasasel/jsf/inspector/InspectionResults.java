@@ -15,7 +15,6 @@
  */
 package de.thomasasel.jsf.inspector;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,15 +26,15 @@ import java.util.Map;
 public class InspectionResults {
     
     // Collection of component data
-    private Map<ComponentType, List<String>> components = new HashMap<ComponentType, List<String>>();
+    private Map<ComponentType, List<String>> components;
 
     // Collection of composite data
-    private Map<ComponentType, List<String>> composites = new HashMap<ComponentType, List<String>>();
-    
-    // Duration of lifecycle phases
-    private String[] phaseDurations = new String[6];
+    private Map<ComponentType, List<String>> composites;
 
-    /**
+    // Array of results describing each phase
+    private PhaseResult[] phaseResults;
+
+  /**
      * Returns mapping of {@link ComponentType} and a List of Client-Ids. 
      * @return Map<ComponentType, List<String>> collection describing composites found in component tree.
      */
@@ -51,8 +50,25 @@ public class InspectionResults {
         return components;
     }
 
-    public String[] getPhaseDurations() {
-        return phaseDurations;
+    /**
+     * Returns an array of {@link PhaseResult}
+     * 
+     * @return 
+     */
+    public PhaseResult[] getPhaseResults() {
+        return phaseResults;
+    }
+
+    public void setComponents(Map<ComponentType, List<String>> components) {
+        this.components = components;
+    }
+
+    public void setComposites(Map<ComponentType, List<String>> composites) {
+        this.composites = composites;
+    }
+
+    public void setPhaseResults(PhaseResult[] phaseResults) {
+        this.phaseResults = phaseResults;
     }
     
     @Override

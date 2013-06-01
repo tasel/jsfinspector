@@ -26,7 +26,8 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 /**
- * TODO
+ * Initiates the various analysis and stores the results as {@link InspectionResults}
+ * in the session map using the key {@link JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE}.
  *
  * @see javax.faces.event.PhaseListener
  * 
@@ -35,37 +36,41 @@ import javax.faces.event.PhaseListener;
 class InspectorListener implements PhaseListener {
     
     private static DecimalFormat DF = new DecimalFormat("0.00");
+    private String TIMESTAMPS_BEFORE_REQUEST_ATTRIBUTE = "de.thomasasel.jsfinspector.beforePhaseTimestamp";
+    private String TIMESTAMPS_AFTER_REQUEST_ATTRIBUTE = "de.thomasasel.jsfinspector.afterPhaseTimestamp";
 
-    private long[]timestampsBefore = new long[6];
-    private long[]timestampsAfter = new long[6];
-    
     @Override
     public void beforePhase(PhaseEvent event) {
+        
         FacesContext context = event.getFacesContext();
         
-        timestampsBefore[event.getPhaseId().getOrdinal()-1] = System.nanoTime();
+        if (event.getPhaseId() == PhaseId.RESTORE_VIEW) {
+            // init timestamps
+            context.getExternalContext().getRequestMap().put(TIMESTAMPS_BEFORE_REQUEST_ATTRIBUTE, new long[6]);
+            context.getExternalContext().getRequestMap().put(TIMESTAMPS_AFTER_REQUEST_ATTRIBUTE, new long[6]);
+        }
+
+        setBeforeTimestamp(event);
 
     }
         
     @Override
     public void afterPhase(PhaseEvent event) {
-        FacesContext context = event.getFacesContext();
         
-        timestampsAfter[event.getPhaseId().getOrdinal()-1] = System.nanoTime();
+        setAfterTimestamp(event);
         
         if (event.getPhaseId() == PhaseId.RENDER_RESPONSE) {
-            InspectionResults treeInspectionResult = inspectTree(context);
-            Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-
-            // store results in Session
-            String key = (String) context.getExternalContext().getRequestMap().get(JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE);
-            sessionMap.put(key, treeInspectionResult);   
+            FacesContext context = event.getFacesContext();
             
-            for (int i = 0; i < 6; i++) {
-                double duration = timestampsAfter[i] - timestampsBefore[i];
-                String formattedDuration = DF.format(duration / 1000000);
-                treeInspectionResult.getPhaseDurations()[i] = formattedDuration;
-            }
+            // gather results
+            InspectionResults inspectionResult = new InspectionResults();
+            addTreeResults(context, inspectionResult);
+            addPhaseResults(context, inspectionResult);
+            
+            // store results in Session
+            Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
+            String key = (String) context.getExternalContext().getRequestMap().get(JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE);
+            sessionMap.put(key, inspectionResult);   
         }
     }
 
@@ -75,17 +80,66 @@ class InspectorListener implements PhaseListener {
     }
 
     /**
-     * Initiates analysis of the component tree and stores the result in the session map
-     * using the key {@link JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE}.
-     * @param context FacesContext
+     * Trigger component tree analysis and store the results in the results parameter.
+     * 
+     * @param context
+     * @param results 
+     * @return 
      */
-    private InspectionResults inspectTree(FacesContext context) {
+    private InspectionResults addTreeResults(FacesContext context, InspectionResults results) {
         UIViewRoot viewRoot = context.getViewRoot();
 
         VisitContext vc = VisitContext.createVisitContext(context);
         TreeInspectionVisitor tiv = new TreeInspectionVisitor();
         viewRoot.visitTree(vc, tiv);
-
-        return tiv.getResult();
+        
+        results.setComponents(tiv.getComponents());
+        results.setComposites(tiv.getComposites());
+        
+        return results;
     }
+
+    /**
+     * Store results of the lifecycle phases in the results parameter.
+     * 
+     * @param results
+     * @return 
+     */
+    private InspectionResults addPhaseResults(FacesContext context, InspectionResults results) {
+        
+        long[] timestampsBefore = getBeforeTimestamps(context);
+        long[] timestampsAfter = getAfterTimestamps(context);
+        
+        PhaseResult[] phaseResults = new PhaseResult[6];
+        
+        for (int i = 0; i < 6; i++) {
+            double duration = timestampsAfter[i] - timestampsBefore[i];
+            String formattedDuration = DF.format(duration / 1000000);
+            PhaseStatus phaseStatus = duration > 0 ? PhaseStatus.PASSED : PhaseStatus.SKIPPED;
+            phaseResults[i] = new PhaseResult(formattedDuration, phaseStatus);
+        }        
+        
+        results.setPhaseResults(phaseResults);
+        return results;
+    }
+
+    private void setBeforeTimestamp(PhaseEvent event) {
+        final long[] timestampsBefore = getBeforeTimestamps(event.getFacesContext());
+        timestampsBefore[event.getPhaseId().getOrdinal()-1] = System.nanoTime();    
+    }
+
+    private void setAfterTimestamp(PhaseEvent event) {
+        final long[] timestampsAfter = getAfterTimestamps(event.getFacesContext());
+        timestampsAfter[event.getPhaseId().getOrdinal()-1] = System.nanoTime();    
+    }
+
+    private long[] getAfterTimestamps(FacesContext context) {
+        return (long[]) context.getExternalContext().getRequestMap().get(TIMESTAMPS_AFTER_REQUEST_ATTRIBUTE);
+    }
+
+    private long[] getBeforeTimestamps(FacesContext context) {
+        return (long[]) context.getExternalContext().getRequestMap().get(TIMESTAMPS_BEFORE_REQUEST_ATTRIBUTE);
+    }
+
+    
 }

@@ -16,9 +16,10 @@
 
             <h1><h:outputText id="hello" value="Hello JSF Example" /></h1>	
 
-            <h:inputText id="input" value="#{flash.input}" />
+            <h:inputText id="input" value="#{flash.input}">
+                <f:validateLength minimum="3" />
+            </h:inputText>
             <h:commandButton id="submitButton" value="submit" >
-                <f:ajax />
             </h:commandButton>
             <br />
             <h:panelGrid id="grid" columns="1">

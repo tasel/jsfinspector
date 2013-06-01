@@ -1,6 +1,5 @@
 
 .jsfinspector-inspector {
-/*    background-color: #ffcc00;*/
     font-family: Arial, Verdana, sans-serif;
     font-size:8pt;
     padding:5px;
@@ -54,6 +53,31 @@
     background-color: #cdcdcd;
 }
 
+.jsfinspector-phaseresults thead td {
+    height: auto;
+}
+
+.jsfinspector-phaseresults td {
+    height:50px;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: bold;
+    
+}
+
+.jsfinspector-phaseresults td.passed {
+    background-color: #007b17;
+}
+
+.jsfinspector-phaseresults td.skipped {
+    background-color: #aaa;
+}
+
+.jsfinspector-phaseresults td.validation_error {
+    background-color: #cc0033;
+}
+
 .jsfinspector-highlight {
     border: 2px dashed #f00;
 }
+
