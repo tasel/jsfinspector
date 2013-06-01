@@ -29,6 +29,11 @@ public class PhaseResult implements Serializable {
     public PhaseResult() {
     }
 
+    /**
+     * 
+     * @param duration
+     * @param status 
+     */
     public PhaseResult(String duration, PhaseStatus status) {
         this.duration = duration;
         this.status = status;
