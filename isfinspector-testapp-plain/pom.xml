@@ -34,7 +34,7 @@
         <dependency>
             <groupId>de.thomasasel</groupId>
             <artifactId>jsfinspector</artifactId>
-            <version>0.8-SNAPSHOT</version>        
+            <version>0.8-SNAPSHOT</version>              
         </dependency>
         <dependency>
             <groupId>javax</groupId>
