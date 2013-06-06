@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JSFInspector - Development made easy</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/styles.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li class="">
+                                <a href="./index.html">Home</a>
+                            </li>
+                            <li class="">
+                                <a href="#get-started">Get started</a>
+                            </li>
+                            <li class="">
+                                <a href="#sect1">Component Tree</a>
+                            </li>
+                            <li class="">
+                                <a href="#sect3">Lifecycle</a>
+                            </li>
+                            <li class="">
+                                <a href="./issues.html">Issues and Feedback</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        <div class="container">
+            <div class="hero-unit">
+                <h1>Development made easy :-)</h1>
+                <p>
+                    A library to make life of JSF developers a bit easier. Ever wondered whats in the component tree or why a 
+                    component doesn't show up? JSFInspector helps to investigate the issue. JSFInspector is used during development 
+                    time. It comes as handy JAR file, no special IDE or plugin required.
+                </p>
+                <a class="btn btn-primary btn-large" href="#get-started">
+                    Get started!
+                </a>
+            </div>
+
+            <div class="page-header">
+                <h1>Features <small> Whats inside the box?</small></h1>
+            </div>
+
+            <a id="sect1" class="clearfix"></a>
+            <div class="section">
+                <h2>How many components are there?</h2>
+                <div class="text">
+                    Since JSF is a stateful serverside component framework, size of the component tree matters. 
+                    The more components on a view, the more time is spent on instantiation, validation and rendering. 
+                    Do you know how many components are on every view of your application and whats the impact on performance?
+                    JSFInspector helps to find out.
+                </div>
+                <div class="image">
+                    <img src="img/components.png" />
+                </div>
+            </div>
+
+            <a id="sect2" class="clearfix"></a>
+            <div class="section right">
+                <h2>Where are my components?</h2>
+                <div class="text">
+                    JSFInspector gives you a list of all components in the current view. Those you declared in XHTML / JSP, 
+                    those you added programmatically, those that were created by the framework or a library. And those that you forgot 
+                    where and why you added them. Hovering a components clientId in JSFInspectors component view highlights its visual 
+                    output, making it easy to find them in complex layouts (as long as the component was rendered).                </div>
+                <div class="image">
+                    <img src="img/highlighting.png" />
+                </div>
+            </div>
+
+            <a id="sect3" class="clearfix"></a>
+            <div class="section">
+                <h2>What is taking so long?</h2>
+                <div class="text">
+                    JSFInspector creates an overview of the lifecycle phases. The overview features the duration and status of each lifecycle phase. 
+                    It offers an easy way to find out which phase was completed or if validation did fail. It is especially useful to find bugs related to the 
+                    immediate attribute in views with complex component structures.
+                </div>
+                <div class="image">
+                    <img src="img/phases.png" />
+                </div>
+            </div>
+
+            <a id="get-started"  class="clearfix"></a>
+            <div class="page-header">
+                <h1>Getting started <small> is really easy</small></h1>
+            </div>
+            <div>
+                <div class="text">
+                    JSFInspector comes as a JAR that simply needs to be placed in your applications classpath. No further configuration is needed.
+                    Once the JAR is available in your application, the inspector component can be used by declaring the JSFInspector namespace. 
+                    The inspector component may be placed anaywhere in a facelet or template:
+                    <pre>
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:i="http://thomas-asel.de/jsfinspector"&gt;
+
+            ...
+
+            &lt;i:inspector /&gt;
+            
+            ...
+
+&lt;/html&gt;</pre>
+                </div>
+            </div>
+            
+            <a id="sect-usage" class="clearfix"></a>
+            <div class="section right">
+                <h2>Usage</h2>
+                <p>
+                JSFInspector is displayed as a unobtrusive clickable panel on the ipper left corner of the screen. This ist to ensure that the existing layout is
+                not affected when JSInspector is used an every page (e.g. by defining it in a template). JSFInspector is only displayed if JSF is running in 
+                <a href="http://stackoverflow.com/questions/13960829/whats-the-difference-between-development-and-production-in-myfaces" target="_blank">develoment mode</a>.
+                This is what JSFInspector looks like in a typical scenario:
+                </p>
+                <img src="img/inspector-full.png" />
+            </div>
+
+        </div>
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

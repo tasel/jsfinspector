@@ -1,0 +1,40 @@
+/* 
+    Document   : styles
+    Created on : 02.06.2013, 11:38:19
+    Author     : Thomas Asel
+*/
+
+.hero-unit {
+    margin-top: 75px;
+}
+
+.section {
+}
+
+.section .text {
+    width: 65%;
+    float:left;
+    text-align: justify;
+    padding: 10px;
+}
+
+.section .image {
+    width:30%;
+    float:left;
+}
+
+.section.right .text {
+    width: 65%;
+    float:right;
+    text-align: justify;
+    padding: 10px;
+}
+
+.section.right .image {
+    width:30%;
+    float:right;
+}
+
+pre {
+    margin: 20px 0;
+}
