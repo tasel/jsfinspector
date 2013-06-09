@@ -2,7 +2,12 @@
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
-                version="2.0">
+                version="2.0"
+                id="inspect">
+    
+    <description>
+        VDL Documentation for components of JSFInspector.
+    </description>
     
     <namespace>http://thomas-asel.de/jsfinspector</namespace>
         
@@ -11,6 +16,9 @@
         <component>
             <component-type>JSFInspector</component-type>
         </component>
+        <description>
+            Enables JSFInspector for the page this component was placed in.
+        </description>
     </tag>
         
 </facelet-taglib>
