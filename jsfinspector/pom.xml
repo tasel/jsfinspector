@@ -3,7 +3,7 @@
 
     <groupId>de.thomasasel</groupId>
     <artifactId>jsfinspector</artifactId>
-    <version>0.8-RELEASE</version>
+    <version>0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>jsfinspector</name>
