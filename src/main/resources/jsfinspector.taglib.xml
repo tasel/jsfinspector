@@ -12,13 +12,28 @@
     <namespace>http://thomas-asel.de/jsfinspector</namespace>
         
     <tag>
-        <tag-name>inspector</tag-name>
+        <tag-name>tree</tag-name>
         <component>
             <component-type>JSFInspector</component-type>
         </component>
         <description>
             Enables JSFInspector for the page this component was placed in.
         </description>
+    </tag>
+    
+    <tag>
+        <tag-name>lifecycle</tag-name>
+        <component>
+            <component-type>InspectLifecycle</component-type>
+            <description>Renders a visual representation of the lifecycle phases.</description>
+            <display-name></display-name>
+        </component>
+        <attribute>
+            <name>expanded</name>
+            <description>true or false (default), determines if the component should be expanded by default.</description>
+            <required>false</required>
+            <type>boolean</type>
+        </attribute>
     </tag>
         
 </facelet-taglib>

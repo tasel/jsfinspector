@@ -70,7 +70,10 @@ class InspectorListener implements PhaseListener {
             // store results in Session
             Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
             String key = (String) context.getExternalContext().getRequestMap().get(JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE);
-            sessionMap.put(key, inspectionResult);   
+            
+            if (key != null) {
+                sessionMap.put(key, inspectionResult);   
+            }
         }
     }
 

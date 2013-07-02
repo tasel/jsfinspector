@@ -15,6 +15,7 @@
  */
 package de.thomasasel.jsf.inspector;
 
+import java.util.logging.Logger;
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
 import javax.faces.application.ProjectStage;
@@ -24,8 +25,6 @@ import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Responsible for the bootstrapping process. 
@@ -34,7 +33,8 @@ import org.slf4j.LoggerFactory;
  * @author Thomas Asel
  */
 public class InspectorBootstrap implements SystemEventListener {
-    private static final Logger LOG = LoggerFactory.getLogger(InspectorBootstrap.class.getName());
+    
+    private static final Logger LOG = Logger.getLogger(InspectorBootstrap.class.getName());
     
     @Override
     public void processEvent(SystemEvent rawEvent) throws AbortProcessingException {
@@ -49,7 +49,7 @@ public class InspectorBootstrap implements SystemEventListener {
             if (stage == ProjectStage.Development) {
                 bootstrap(event);
             } else {
-                LOG.warn("Attempt to install JSF-Inspector in non-Development stage! Bootstrapping canceled.");
+                LOG.warning("Attempt to install JSF-Inspector in non-Development stage! Bootstrapping canceled.");
             }
         }
         

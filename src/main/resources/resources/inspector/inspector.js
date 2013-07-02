@@ -64,7 +64,7 @@ function handleResponse(data) {
 function createList(components, title) {
 
     var table = $("<table border=\"1\">");
-    $("#jsfinspector-inspector-content").append(table);
+    $("#jsfinspector-inspector-components").find("#jsfinspector-inspector-content").append(table);
     
     
     if (title) {
@@ -114,7 +114,7 @@ function createPhaseResults(phaseResults) {
     
     var table = $("<table border=\"1\">");
     table.addClass("jsfinspector-phaseresults");
-    $("#jsfinspector-inspector-content").append(table);
+    $(".jsfinspector-lifecycle").find(".jsfinspector-inspector-content").append(table);
     table.append("<thead><tr><td colspan=\"6\">Phase Results</td></tr></thead>");
     
     var row = $("<tr></tr>");

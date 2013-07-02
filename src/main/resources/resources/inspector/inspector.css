@@ -6,20 +6,16 @@
     
 }
 
-#jsfinspector-inspector-heading {
+.jsfinspector-inspector-heading {
     background-color: #ffcc00;
-    width: 60px;
-    height: 15px;
-    position:absolute;
-    top:0;
-    left:0;
     font-weight:bold;
     text-align:center;
+    padding: 5px;
 }
 
-#jsfinspector-inspector-content {
-    display:none;
+.jsfinspector-inspector-content {
 }
+
 .jsfinspector-inspector table {
     
     border: 1px solid #000;
@@ -51,6 +47,10 @@
 
 .jsfinspector-inspector .oddRow {
     background-color: #cdcdcd;
+}
+
+.jsfinspector-phaseresults {
+    width:100%;
 }
 
 .jsfinspector-phaseresults thead td {
