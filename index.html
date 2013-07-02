@@ -26,7 +26,10 @@
                                 <a href="#sect3">Lifecycle</a>
                             </li>
                             <li class="">
-                                <a href="./issues.html">Issues and Feedback</a>
+                                <a href="https://github.com/tasel/jsfinspector">Sources</a>
+                            </li>
+                            <li class="">
+                                <a href="https://github.com/tasel/jsfinspector/issues">Issues</a>
                             </li>
                         </ul>
                     </div>
@@ -102,11 +105,12 @@
                     <pre>
 &lt;html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:i="http://thomas-asel.de/jsfinspector"&gt;
+      xmlns:inspect="http://thomas-asel.de/jsfinspector"&gt;
 
             ...
 
-            &lt;i:inspector /&gt;
+            &lt;inspect:tree /&gt;
+            &lt;inspect:lifecycle /&gt;
             
             ...
 
@@ -114,12 +118,37 @@
                 </div>
             </div>
             
-            <a id="sect-usage" class="clearfix"></a>
+            <a id="sect-maven" class="clearfix"></a>
+            <div class="section left">
+                <h2>Get it with Maven ... </h2>
+                <p>
+                Add these coordinates to your POM:
+                <pre>
+    &lt;dependency&gt;
+        &lt;groupId&gt;de.thomasasel&lt;/groupId&gt;
+        &lt;artifactId&gt;jsfinspector&lt;/artifactId&gt;
+        &lt;version&gt;0.8.1&lt;/version&gt;
+    &lt;/dependency&gt;
+                </pre>
+            </div>          
+
+            <a id="sect-maven" class="clearfix"></a>
             <div class="section right">
+                <h2>... or download the binaries</h2>
+                <p>
+                    As a non-Maven user you may simply want to download the JAR using <a href="http://search.maven.org/#artifactdetails%7Cde.thomasasel%7Cjsfinspector%7C0.8.1%7Cjar" target="_blank">this link.</a>
+                </p>
+            </div>          
+
+            <a id="sect-usage" class="clearfix"></a>
+            <div class="section left">
                 <h2>Usage</h2>
                 <p>
-                JSFInspector is displayed as a unobtrusive clickable panel on the ipper left corner of the screen. This ist to ensure that the existing layout is
-                not affected when JSInspector is used an every page (e.g. by defining it in a template). JSFInspector is only displayed if JSF is running in 
+                <!--JSFInspector is displayed as a unobtrusive clickable panel on the ipper left corner of the screen. This ist to ensure that the existing layout is
+                not affected when JSInspector is used an every page (e.g. by defining it in a template).--> 
+                Add the namespace  to your facelet and and add any of the components anywhere ony our page as shown <a href="#get-started">above</a>.<br />
+                
+                JSFInspector is only displayed if JSF is running in 
                 <a href="http://stackoverflow.com/questions/13960829/whats-the-difference-between-development-and-production-in-myfaces" target="_blank">develoment mode</a>.
                 This is what JSFInspector looks like in a typical scenario:
                 </p>
