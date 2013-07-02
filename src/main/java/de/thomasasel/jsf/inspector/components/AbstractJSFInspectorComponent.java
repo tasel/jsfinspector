@@ -16,6 +16,7 @@
 package de.thomasasel.jsf.inspector.components;
 
 import java.io.IOException;
+import java.util.Map;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
@@ -32,6 +33,8 @@ public abstract class AbstractJSFInspectorComponent extends UIComponentBase  imp
     public static final String RESULT_KEY_REQUEST_ATTRIBUTE = "de.thomasasel.jsfinspector.RESULT_KEY";
     public static final String SUPRESS_CSS_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_CSS";
     public static final String SUPRESS_JQUERY_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_JQUERY";
+    public static final String ACTIVATION_SCRIPT_RENDERED_CONTEXT_ATTRIBUTE = "de.thomasasel.jsfinspector.ACTIVATION_SCRIPT_RENDERED";
+    
     
     /* Name of the context attribute that holds a flag which determines if the script issuing an async request has already been rendered */
     public static final String ASYNC_REQUEST_SCRIPT_RENDERED_CONTEXT_ATTRIBUTE_NAME = "de.thomasasel.jsfinspector.ASYNC_REQUEST_SCRIPT_RENDERED";
@@ -108,6 +111,37 @@ public abstract class AbstractJSFInspectorComponent extends UIComponentBase  imp
             
             context.getAttributes().put(ASYNC_REQUEST_SCRIPT_RENDERED_CONTEXT_ATTRIBUTE_NAME, true);
         }
+    }
+    
+    /**
+     * Creates the output for the script that issues an async request to get the gathered information.
+     * Takes care that the script is rendered only once.
+     * 
+     * @param writer 
+     * @return boolean determines if this call rendered the activation script. False means the script was already rendered in a previous call.
+     */
+    protected boolean renderActivationScript(ResponseWriter writer) throws IOException {
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<Object, Object> contextAttributes = context.getAttributes();
+        Object scriptRendered = contextAttributes.get(ACTIVATION_SCRIPT_RENDERED_CONTEXT_ATTRIBUTE);
+        
+        if (scriptRendered == null || Boolean.FALSE == scriptRendered) {
+        
+            // Render the script to issue an async request upon page load
+            String resultKey = createResultKey(context);
+            writer.startElement(HTML.TAG.SCRIPT, this);
+            writer.writeAttribute(HTML.ATTRIBUTE.LANGUAGE, "javascript", null);
+            writer.write("$.get('jsfinspector', '" + resultKey + "',function(data) {handleResponse(data);});");
+            writer.endElement(HTML.TAG.SCRIPT);
+
+            contextAttributes.put(ACTIVATION_SCRIPT_RENDERED_CONTEXT_ATTRIBUTE, Boolean.TRUE);
+            
+            return true;
+        } else {
+            return false;
+        }
+        
     }
     
 }

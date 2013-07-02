@@ -52,7 +52,7 @@ public class InspectLifecycleComponent extends AbstractJSFInspectorComponent {
         writer.startElement(TAG.DIV, this);
         writer.writeAttribute(ATTRIBUTE.CLASS, expanded ? "jsfinspector-component jsfinspector-lifecycle" : "jsfinspector-component jsfinspector-lifecycle", null);
         writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-inspector-heading", null);
+        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-component-heading ", null);
         writer.write("Inspect Lifecycle");
         writer.endElement(TAG.DIV);
         writer.startElement(TAG.DIV, this);

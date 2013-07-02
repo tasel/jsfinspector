@@ -67,9 +67,6 @@ public class InspectTreeComponent extends AbstractJSFInspectorComponent {
         writer.startElement(TAG.DIV, this);
         writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-component jsfinspector-tree", null);
         writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-treer-heading", null);
-        writer.endElement(TAG.DIV);
-        writer.startElement(TAG.DIV, this);
         writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-tree-content", null);
         writer.endElement(TAG.DIV);
         writer.endElement(TAG.DIV);
