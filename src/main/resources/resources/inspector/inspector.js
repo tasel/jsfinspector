@@ -15,19 +15,6 @@
  */
 
 /**
- * Client-side bootstrapping
- */
-$( document ).ready(function() {
-    // Move inspector to top
-    $("body").prepend($(".jsfinspector-inspector"));
-    
-    // Add Click-Handlers for inspector
-    $(".jsfinspector-inspector").click(function(event){
-        $("#jsfinspector-inspector-content").slideToggle();
-    });
-});
-
-/**
  * Called upon incoming asynchronous response. 
  * Takes care of calling functions to create the output.
  * 
@@ -64,7 +51,8 @@ function handleResponse(data) {
 function createList(components, title) {
 
     var table = $("<table border=\"1\">");
-    $("#jsfinspector-inspector-components").find("#jsfinspector-inspector-content").append(table);
+    
+    $(".jsfinspector-tree").find(".jsfinspector-tree-content").append(table);
     
     
     if (title) {
@@ -105,8 +93,8 @@ function createList(components, title) {
     table.append("<tfoot><tr><td>Total number of components:</td><td>"+ overallCounter +"</td></tr></tfoot>");
     
     // Add banding
-    $(".jsfinspector-inspector table tr:even").addClass("evenRow");
-    $(".jsfinspector-inspector table tr:odd").addClass("oddRow");
+    $(".jsfinspector-tree table tr:even").addClass("evenRow");
+    $(".jsfinspector-tree table tr:odd").addClass("oddRow");
     
 }
 
@@ -136,7 +124,6 @@ function createPhaseResults(phaseResults) {
 function highlight(jsfClientId) {
     var escapedClientId = escapeClientId(jsfClientId);
     $(escapedClientId).addClass("jsfinspector-highlight");
-    console.log($(escapedClientId));
 }
 
 /**

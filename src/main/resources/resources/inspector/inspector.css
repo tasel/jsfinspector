@@ -1,22 +1,22 @@
 
-.jsfinspector-inspector {
-    font-family: Arial, Verdana, sans-serif;
-    font-size:8pt;
-    padding:5px;
+.jsfinspector-component {
+    font-family: Arial, Verdana, sans-serif !important;
+    font-size:8pt !important;
+    padding:5px !important;
     
 }
 
-.jsfinspector-inspector-heading {
+.jsfinspector-tree-heading {
     background-color: #ffcc00;
     font-weight:bold;
     text-align:center;
     padding: 5px;
 }
 
-.jsfinspector-inspector-content {
+.jsfinspector-tree-content {
 }
 
-.jsfinspector-inspector table {
+.jsfinspector-tree table {
     
     border: 1px solid #000;
     padding: 3px;
@@ -25,27 +25,27 @@
     width: 50%;
 }
 
-.jsfinspector-inspector td {
+.jsfinspector-tree td {
     padding:3px;
 }
 
-.jsfinspector-inspector thead td {
+.jsfinspector-tree thead td {
     text-align: center;
     font-weight:bold;
     color:#fff;
     background-color: #000;
 }
 
-.jsfinspector-inspector tfoot {
+.jsfinspector-tree tfoot {
     font-weight: bold;
     background-color: #ffcc00;
 }
 
-.jsfinspector-inspector .evenRow {
+.jsfinspector-tree .evenRow {
     background-color: #fff;
 }
 
-.jsfinspector-inspector .oddRow {
+.jsfinspector-tree .oddRow {
     background-color: #cdcdcd;
 }
 

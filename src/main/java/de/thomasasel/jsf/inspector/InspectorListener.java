@@ -15,7 +15,7 @@
  */
 package de.thomasasel.jsf.inspector;
 
-import de.thomasasel.jsf.inspector.components.JSFInspector;
+import de.thomasasel.jsf.inspector.components.InspectTreeComponent;
 import java.text.DecimalFormat;
 import java.util.Map;
 import javax.faces.component.UIViewRoot;
@@ -69,7 +69,7 @@ class InspectorListener implements PhaseListener {
             
             // store results in Session
             Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-            String key = (String) context.getExternalContext().getRequestMap().get(JSFInspector.RESULT_KEY_REQUEST_ATTRIBUTE);
+            String key = (String) context.getExternalContext().getRequestMap().get(InspectTreeComponent.RESULT_KEY_REQUEST_ATTRIBUTE);
             
             if (key != null) {
                 sessionMap.put(key, inspectionResult);   

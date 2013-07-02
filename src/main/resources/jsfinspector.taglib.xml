@@ -14,7 +14,7 @@
     <tag>
         <tag-name>tree</tag-name>
         <component>
-            <component-type>JSFInspector</component-type>
+            <component-type>InspectTree</component-type>
         </component>
         <description>
             Enables JSFInspector for the page this component was placed in.
