@@ -127,7 +127,7 @@
     &lt;dependency&gt;
         &lt;groupId&gt;de.thomasasel&lt;/groupId&gt;
         &lt;artifactId&gt;jsfinspector&lt;/artifactId&gt;
-        &lt;version&gt;0.8.1&lt;/version&gt;
+        &lt;version&gt;0.8.2&lt;/version&gt;
     &lt;/dependency&gt;
                 </pre>
             </div>          
@@ -155,6 +155,28 @@
                 <img src="img/inspector-full.png" />
             </div>
 
+            <a id="sect-usage" class="clearfix"></a>
+            <div class="section right">
+                <h2>Optional Configuration</h2>
+                <p>
+                    JSFInspector comes with a bundled version of <a href="https://jquery.org/" target="_blank">jQuery</a>. 
+                    Chances are good that your project also uses jQuery so you may want JSFInspector to suppress its bundled version.
+                    You can suppress the bundled version of jQuery and also the CSS file defining the styles for JSFInspector by simply adding 
+                    these context params to web.xml: 
+                </p>
+                <pre>
+    &lt;context-param&gt;
+        &lt;param-name&gt;de.thomasasel.jsfinspector.SUPPRESS_JQUERY&lt;/param-name&gt;
+        &lt;param-value&gt;true&lt;/param-value&gt;
+    &lt;/context-param&gt; 
+
+    &lt;context-param&gt;
+        &lt;param-name&gt;de.thomasasel.jsfinspector.SUPPRESS_CSS&lt;/param-name&gt;
+        &lt;param-value&gt;true&lt;/param-value&gt;
+    &lt;/context-param&gt; 
+                </pre>
+            </div>
+                        
         </div>
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
