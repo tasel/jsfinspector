@@ -15,13 +15,8 @@
  */
 package de.thomasasel.jsf.inspector.components;
 
-import de.thomasasel.jsf.inspector.components.HTML.ATTRIBUTE;
-import de.thomasasel.jsf.inspector.components.HTML.TAG;
-import java.io.IOException;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
@@ -35,51 +30,25 @@ import javax.faces.event.PostAddToViewEvent;
 @FacesComponent(InspectLifecycleComponent.TYPE)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 @ResourceDependency(library = "inspector", name = "inspector.js", target = "body")
-public class InspectLifecycleComponent extends AbstractJSFInspectorComponent {
+public class InspectLifecycleComponent extends JSFInspectorComponent {
 
     /**
      * Component Type
      */
     public static final String TYPE = "InspectLifecycle";
     
-    private boolean expanded; 
-
-    @Override
-    public void encodeEnd(FacesContext context) throws IOException {
-        ResponseWriter writer = context.getResponseWriter();
-
-        // render the stub, jQuery will fill it on the client side.
-        writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, expanded ? "jsfinspector-component jsfinspector-lifecycle" : "jsfinspector-component jsfinspector-lifecycle", null);
-        writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-component-heading ", null);
-        writer.write("Inspect Lifecycle");
-        writer.endElement(TAG.DIV);
-        writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-inspector-content", null);
-        writer.endElement(TAG.DIV);
-        writer.endElement(TAG.DIV);
-
-        // Render the script to issue an async request upon page load
-        String resultKey = createResultKey(context);
-        writer.startElement(TAG.SCRIPT, this);
-        writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
-        writer.write("$.get('jsfinspector', '" + resultKey + "',function(data) {handleResponse(data);});");
-        writer.endElement(TAG.SCRIPT);
-    }
-
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         addResourcesOnDemand();
     }
 
-    public boolean isExpanded() {
-        return expanded;
+    @Override
+    public String getHeading() {
+        return "Inspect Lifecycle";
     }
 
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
+    @Override
+    public String getStyleClass() {
+        return "jsfinspector-lifecycle";
     }
-
-    
 }

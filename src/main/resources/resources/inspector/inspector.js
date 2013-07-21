@@ -22,9 +22,9 @@
  */
 function handleResponse(data) {
 
-    if (data) {
+    if (typeof responseHandled == 'undefined' && data) {
         
-         var json = jQuery.parseJSON(data);
+        var json = jQuery.parseJSON(data);
         
         if (json.components && ! jQuery.isEmptyObject(json.components)) {
             // Create the visual output for components
@@ -40,6 +40,8 @@ function handleResponse(data) {
             // Create visual output for phase results
             createPhaseResults(json.phaseResults);
         }
+        
+        responseHandled = true;
     }
 }
 
@@ -52,7 +54,7 @@ function createList(components, title) {
 
     var table = $("<table border=\"1\">");
     
-    $(".jsfinspector-tree").find(".jsfinspector-tree-content").append(table);
+    $(".jsfinspector-tree").find(".jsfinspector-inspector-content").append(table);
     
     
     if (title) {

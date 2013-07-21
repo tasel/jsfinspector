@@ -16,13 +16,8 @@
 package de.thomasasel.jsf.inspector.components;
 
 import de.thomasasel.jsf.inspector.TreeResultServlet;
-import de.thomasasel.jsf.inspector.components.HTML.ATTRIBUTE;
-import de.thomasasel.jsf.inspector.components.HTML.TAG;
-import java.io.IOException;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ListenerFor;
@@ -41,47 +36,29 @@ import javax.faces.event.PostAddToViewEvent;
 @FacesComponent(InspectTreeComponent.TYPE)
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 @ResourceDependency(library = "inspector", name="inspector.js" , target = "body")
-public class InspectTreeComponent extends AbstractJSFInspectorComponent {
+public class InspectTreeComponent extends JSFInspectorComponent {
 
-    	/** Component Type */
-	public static final String TYPE = "InspectTree";
-	/** Component Family */
-	public static final String FAMILY = "de.thomasasel.JSFInspector";
+    /** Component Type */
+    public static final String TYPE = "InspectTree";
         
-        public static final String SUPRESS_JQUERY_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_JQUERY";
-        public static final String SUPRESS_CSS_CONTEXT_PARAM = "de.thomasasel.jsfinspector.SUPPRESS_CSS";
-        public static final String RESULT_KEY_REQUEST_ATTRIBUTE = "de.thomasasel.jsfinspector.RESULT_KEY";
-        
-        public  static final String INSPECTOR_RESULT_PARAMETER = "jsfinspector_result";
-    
     @Override
     public String getFamily() {
         return FAMILY;
     }
 
     @Override
-    public void encodeEnd(FacesContext context) throws IOException {
-        ResponseWriter writer = context.getResponseWriter();
-        
-        // render the stub, jQuery will fill it on the client side.
-        writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-component jsfinspector-tree", null);
-        writer.startElement(TAG.DIV, this);
-        writer.writeAttribute(ATTRIBUTE.CLASS, "jsfinspector-tree-content", null);
-        writer.endElement(TAG.DIV);
-        writer.endElement(TAG.DIV);
-        
-        // Render the script to issue an async request upon page load
-        String resultKey = createResultKey(context); 
-        writer.startElement(TAG.SCRIPT, this);
-        writer.writeAttribute(ATTRIBUTE.LANGUAGE, "javascript", null);
-        writer.write("$.get('jsfinspector', '"+ resultKey+ "',function(data) {handleResponse(data);});");
-        writer.endElement(TAG.SCRIPT);
+    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
+        addResourcesOnDemand();
     }
 
     @Override
-    public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
-        addResourcesOnDemand();
+    public String getHeading() {
+        return "Inspect Component Tree";
+    }
+
+    @Override
+    public String getStyleClass() {
+        return "jsfinspector-tree";
     }
     
 }
